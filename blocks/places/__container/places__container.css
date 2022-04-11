@@ -1,0 +1,21 @@
+.places__container {
+  display: grid;
+  justify-items: center;
+  gap: 17px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 619px) {
+  .places__container {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: end;
+  }
+}
+
+@media screen and (min-width: 914px) {
+  .places__container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

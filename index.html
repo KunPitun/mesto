@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+    <main>
+      <section class="profile">
+        <img class="profile__avatar" src="./images/Kusto.jpg" alt="Аватар пользователя">
+        <div class="profile__intro">
+          <h1 class="profile__user-name">Жак-Ив Кусто</h1>
+          <button class="profile__edit-btn"></button>
+          <p class="profile__user-info">Исследователь океана</p>
+        </div>
+        <button class="profile__add-btn"></button>
+      </section>
+      <section class="places">
+        <ul class="places__container">
+          <li class="place-card">
+            <img class="place-card__image" src="./images/Karachaevsk.jpg" alt="Руины Карачевской церкви">
+            <h2 class="place-card__title">Карачаевск</h2>
+            <button class="place-card__like-btn"></button>
+          </li>
+          <li class="place-card">
+            <img class="place-card__image" src="./images/Elbrus.jpg" alt="Рассвет над горой Эльбрус">
+            <h2 class="place-card__title">Гора Эльбрус</h2>
+            <button class="place-card__like-btn"></button>
+          </li>
+          <li class="place-card">
+            <img class="place-card__image" src="./images/Dombai.jpg" alt="Горы Домбая">
+            <h2 class="place-card__title">Домбай</h2>
+            <button class="place-card__like-btn"></button>
+          </li>
+          <li class="place-card">
+            <img class="place-card__image" src="./images/Elbrus.jpg" alt="Рассвет над горой Эльбрус">
+            <h2 class="place-card__title">Гора Эльбрус</h2>
+            <button class="place-card__like-btn"></button>
+          </li>
+          <li class="place-card">
+            <img class="place-card__image" src="./images/Dombai.jpg" alt="Горы Домбая">
+            <h2 class="place-card__title">Домбай</h2>
+            <button class="place-card__like-btn"></button>
+          </li>
+          <li class="place-card">
+            <img class="place-card__image" src="./images/Karachaevsk.jpg" alt="Руины Карачевской церкви">
+            <h2 class="place-card__title">Карачаево-Черкесия</h2>
+            <button class="place-card__like-btn"></button>
+          </li>
+        </ul>
+      </section>
+      <section class="popup popup_closed">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input class="popup__input popup__input_type_name" type="text" placeholder="Жак-Ив Кусто">
+          <input class="popup__input popup__input_type_user-info" type="text" placeholder="Исследователь океана">
+          <button class="popup__save-btn">Сохранить</button>
+        </div>
+        <button class="popup__close-btn"></button>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2022 Николаенко Николай</p>
+    </footer>
+  </div>
+  <script src="./script.js"></script>
+</body>
+
+</html>

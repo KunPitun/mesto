@@ -4,14 +4,11 @@
   border: none;
   margin: 0 auto 30px auto;
   padding: 0;
-  border-bottom: 1px solid #CCCCCC;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
 }
-
-input::-moz-placeholder { color: black; }
-input::-webkit-input-placeholder { color: black; }
 
 @media screen and (min-width: 619px) {
   .popup__input {

@@ -2,10 +2,10 @@
   border: none;
   width: 18px;
   height: 18px;
+  background: transparent;
   background-image: url(../../../images/Edit\ Button.svg);
   background-size: contain;
   padding: 0;
-  background-color: black;
   grid-row: 1/2;
   grid-column: 1/2;
   margin-left: 245px;

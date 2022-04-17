@@ -9,8 +9,10 @@ let editBtn = document.querySelector('.profile__edit-btn');
 
 function popupOpenClose() {
   popup.classList.toggle('popup_closed');
-  popupInputName.value = userName.textContent;
-  popupInputInfo.value = userInfo.textContent;
+  if (popup.className === 'popup') {
+    popupInputName.value = userName.textContent;
+    popupInputInfo.value = userInfo.textContent;
+  }
 }
 
 function formSubmitHandler(evt) {

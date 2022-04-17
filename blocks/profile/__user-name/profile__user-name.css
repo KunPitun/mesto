@@ -9,7 +9,8 @@
   max-width: 189px;
   justify-self: center;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis;;
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 914px) {

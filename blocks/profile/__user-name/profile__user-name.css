@@ -9,7 +9,7 @@
   max-width: 189px;
   justify-self: center;
   overflow: hidden;
-  text-overflow: ellipsis;;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 

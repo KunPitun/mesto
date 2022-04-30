@@ -25,38 +25,7 @@
         <button class="profile__add-btn" type="button"></button>
       </section>
       <section class="places">
-        <ul class="places__container">
-          <li class="place-card">
-            <img class="place-card__image" src="./images/Karachaevsk.jpg" alt="Руины Карачевской церкви">
-            <h2 class="place-card__title">Карачаевск</h2>
-            <button class="place-card__like-btn" type="button"></button>
-          </li>
-          <li class="place-card">
-            <img class="place-card__image" src="./images/Elbrus.jpg" alt="Рассвет над горой Эльбрус">
-            <h2 class="place-card__title">Гора Эльбрус</h2>
-            <button class="place-card__like-btn" type="button"></button>
-          </li>
-          <li class="place-card">
-            <img class="place-card__image" src="./images/Dombai.jpg" alt="Горы Домбая">
-            <h2 class="place-card__title">Домбай</h2>
-            <button class="place-card__like-btn" type="button"></button>
-          </li>
-          <li class="place-card">
-            <img class="place-card__image" src="./images/Elbrus.jpg" alt="Рассвет над горой Эльбрус">
-            <h2 class="place-card__title">Гора Эльбрус</h2>
-            <button class="place-card__like-btn" type="button"></button>
-          </li>
-          <li class="place-card">
-            <img class="place-card__image" src="./images/Dombai.jpg" alt="Горы Домбая">
-            <h2 class="place-card__title">Домбай</h2>
-            <button class="place-card__like-btn" type="button"></button>
-          </li>
-          <li class="place-card">
-            <img class="place-card__image" src="./images/Karachaevsk.jpg" alt="Руины Карачевской церкви">
-            <h2 class="place-card__title">Карачаево-Черкесия</h2>
-            <button class="place-card__like-btn" type="button"></button>
-          </li>
-        </ul>
+        <ul class="places__container"></ul>
       </section>
       <section class="popup popup_closed">
         <div class="popup__container">
@@ -71,11 +40,39 @@
         </div>
         <button class="popup__close-btn" type="button"></button>
       </section>
+      <section class="popup popup_closed">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__form" name="form-input">
+            <input class="popup__input popup__input_type_place" type="text" placeholder="Название"
+              name="form-input-place">
+            <input class="popup__input popup__input_type_link" type="text" placeholder="Ссылка на картинку"
+              name="form-input-link">
+            <button class="popup__save-btn" type="submit">Создать</button>
+          </form>
+        </div>
+        <button class="popup__close-btn" type="button"></button>
+      </section>
+      <section class="place-popup popup_closed">
+        <div class="place-popup__container">
+          <img class="place-popup__image" src="#" alt="">
+          <h2 class="place-popup__title"></h2>
+          <button class="place-popup__close-btn" type="button"></button>
+        </div>
+      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Николаенко Николай</p>
     </footer>
   </div>
+  <template id="place-card-template">
+    <li class="place-card">
+      <img class="place-card__image" src="#" alt="">
+      <h2 class="place-card__title"></h2>
+      <button class="place-card__like-btn" type="button"></button>
+      <button class="place-card__delete-btn" type="button"></button>
+    </li>
+  </template>
   <script src="./script.js"></script>
 </body>
 

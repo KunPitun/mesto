@@ -1,0 +1,4 @@
+.place-popup__container {
+  display: grid;
+  min-width: 240px;
+}

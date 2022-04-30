@@ -9,7 +9,7 @@
   margin: 30px 20px 30px 0;
   border: none;
   background-image: url(../../../images/Like\ Button.svg);
-  background-color: white;
+  background-color: transparent;
   transition: 0.5s;
 }
 

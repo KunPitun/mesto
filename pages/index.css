@@ -25,11 +25,12 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__save-btn/popup__save-btn.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
+@import url(../blocks/popup/_closed/popup_closed.css);
 @import url(../blocks/place-popup/place-popup.css);
 @import url(../blocks/place-popup/__container/place-popup__container.css);
 @import url(../blocks/place-popup/__image/place-popup__image.css);
 @import url(../blocks/place-popup/__title/place-popup__title.css);
 @import url(../blocks/place-popup/__close-btn/place-popup__close-btn.css);
-@import url(../blocks/popup/_closed/popup_closed.css);
+@import url(../blocks/place-popup/_closed/place-popup_closed.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

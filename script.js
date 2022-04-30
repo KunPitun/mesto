@@ -63,7 +63,7 @@ function popupOpenClose(evt) {
     cardPopup.classList.toggle('popup_closed');
   }
   if (evt.target.src === placePopupImg.src || evt.target === placePopupCloseBtn) {
-    placePopup.classList.toggle('popup_closed');
+    placePopup.classList.toggle('place-popup_closed');
   }
 }
 

@@ -27,43 +27,43 @@
       <section class="places">
         <ul class="places__container"></ul>
       </section>
-      <section class="popup popup_closed">
-        <div class="popup__container">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form" name="form-input">
-            <input class="popup__input popup__input_type_name" type="text" placeholder="Жак-Ив Кусто"
-              name="form-input-name">
-            <input class="popup__input popup__input_type_user-info" type="text" placeholder="Исследователь океана"
-              name="form-input-info">
-            <button class="popup__save-btn" type="submit">Сохранить</button>
-          </form>
-        </div>
-        <button class="popup__close-btn" type="button"></button>
-      </section>
-      <section class="popup popup_closed">
-        <div class="popup__container">
-          <h2 class="popup__title">Новое место</h2>
-          <form class="popup__form" name="form-input">
-            <input class="popup__input popup__input_type_place" type="text" placeholder="Название"
-              name="form-input-place">
-            <input class="popup__input popup__input_type_link" type="text" placeholder="Ссылка на картинку"
-              name="form-input-link">
-            <button class="popup__save-btn" type="submit">Создать</button>
-          </form>
-        </div>
-        <button class="popup__close-btn" type="button"></button>
-      </section>
-      <section class="place-popup place-popup_closed">
-        <div class="place-popup__container">
-          <img class="place-popup__image" src="#" alt="">
-          <h2 class="place-popup__title"></h2>
-          <button class="place-popup__close-btn" type="button"></button>
-        </div>
-      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Николаенко Николай</p>
     </footer>
+    <section class="popup popup_type_profile-popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="form-input">
+          <input class="popup__input popup__input_type_name" type="text" placeholder="Жак-Ив Кусто"
+            name="form-input-name">
+          <input class="popup__input popup__input_type_user-info" type="text" placeholder="Исследователь океана"
+            name="form-input-info">
+          <button class="popup__save-btn" type="submit">Сохранить</button>
+        </form>
+      </div>
+      <button class="popup__close-btn" type="button"></button>
+    </section>
+    <section class="popup popup_type_card-popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="form-input">
+          <input class="popup__input popup__input_type_place" type="text" placeholder="Название"
+            name="form-input-place">
+          <input class="popup__input popup__input_type_link" type="text" placeholder="Ссылка на картинку"
+            name="form-input-link">
+          <button class="popup__save-btn" type="submit">Создать</button>
+        </form>
+      </div>
+      <button class="popup__close-btn" type="button"></button>
+    </section>
+    <section class="popup popup_type_place-popup">
+      <div class="popup__container popup__container_type_place-popup">
+        <img class="popup__image" src="#" alt="">
+        <h2 class="popup__title popup__title_type_place-popup"></h2>
+        <button class="popup__close-btn popup__close-btn_type_place-popup" type="button"></button>
+      </div>
+    </section>
   </div>
   <template id="place-card-template">
     <li class="place-card">

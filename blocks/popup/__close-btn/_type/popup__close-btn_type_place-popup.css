@@ -1,8 +1,8 @@
-.place-popup__close-btn {
+.popup__close-btn_type_place-popup {
   padding: 0;
   border: none;
   background: transparent;
-  background-image: url(../../../images/Close\ Button.svg);
+  background-image: url(../../../../images/Close\ Button.svg);
   background-size: contain;
   width: 20px;
   height: 20px;
@@ -15,13 +15,13 @@
   top: -36px;
 }
 
-.place-popup__close-btn:hover {
+.popup__close-btn_type_place-popup:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
 @media screen and (min-width: 619px) {
-  .place-popup__close-btn {
+  .popup__close-btn_type_place-popup {
     width: 32px;
     height: 32px;
     top: -40px;

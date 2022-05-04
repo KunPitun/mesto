@@ -45,15 +45,19 @@ const initialCards = [
   }
 ];
 
-function popupOpenClose(popup) {
-  popup.classList.toggle('popup_opened');
+function popupOpen(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function popupClose(popup) {
+  popup.classList.remove('popup_opened');
 }
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
   userName.textContent = profilePopupInputName.value;
   userInfo.textContent = profilePopupInputInfo.value;
-  popupOpenClose(profilePopup);
+  popupClose(profilePopup);
 }
 
 function createCard(place, link) {
@@ -61,6 +65,7 @@ function createCard(place, link) {
   const cardImage = card.querySelector('.place-card__image');
   const cardTitle = card.querySelector('.place-card__title');
   cardImage.src = link;
+  cardImage.alt = place;
   cardTitle.textContent = place;
   card.querySelector('.place-card__like-btn').addEventListener('click', evt => {
     evt.target.classList.toggle('place-card__like-btn_active');
@@ -73,7 +78,7 @@ function createCard(place, link) {
     placePopupImg.src = evt.target.src;
     placePopupTitle.textContent = cardTitle.textContent;
     placePopupImg.alt = cardTitle.textContent;
-    popupOpenClose(placePopup);
+    popupOpen(placePopup);
   });
   return card;
 }
@@ -81,9 +86,8 @@ function createCard(place, link) {
 function formSubmitAddCard(evt) {
   evt.preventDefault();
   placesContainer.prepend(createCard(cardPopupInputPlace.value, cardPopupInputLink.value));
-  popupOpenClose(cardPopup);
-  cardPopupInputLink.value = '';
-  cardPopupInputPlace.value = '';
+  popupClose(cardPopup);
+  cardPopupFormElement.reset();
 }
 
 initialCards.forEach(item => {
@@ -92,19 +96,19 @@ initialCards.forEach(item => {
 btnEdit.addEventListener('click', () => {
   profilePopupInputName.value = userName.textContent;
   profilePopupInputInfo.value = userInfo.textContent;
-  popupOpenClose(profilePopup);
+  popupOpen(profilePopup);
 });
 profilePopupCloseBtn.addEventListener('click', () => {
-  popupOpenClose(profilePopup);
+  popupClose(profilePopup);
 });
 profilePopupFormElement.addEventListener('submit', formSubmitHandler);
 btnAdd.addEventListener('click', () => {
-  popupOpenClose(cardPopup);
+  popupOpen(cardPopup);
 });
 cardPopupCloseBtn.addEventListener('click', () => {
-  popupOpenClose(cardPopup);
+  popupClose(cardPopup);
 });
 cardPopupFormElement.addEventListener('submit', formSubmitAddCard);
 placePopupCloseBtn.addEventListener('click', () => {
-  popupOpenClose(placePopup);
+  popupClose(placePopup);
 });

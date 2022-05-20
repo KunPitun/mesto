@@ -16,49 +16,20 @@ const placePopup = document.querySelector('.popup_type_place-popup');
 const placePopupImg = placePopup.querySelector('.popup__image');
 const placePopupTitle = placePopup.querySelector('.popup__title');
 const placePopupCloseBtn = placePopup.querySelector('.popup__close-btn');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
-function popupOpen(popup) {
-  if (haveForm(popup)) {
-    formPreparation(popup);
-  }
+function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
-function popupClose(popup) {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function formSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   userName.textContent = profilePopupInputName.value;
   userInfo.textContent = profilePopupInputInfo.value;
-  popupClose(profilePopup);
+  preparationOfPopupForClosing(profilePopup);
 }
 
 function createCard(place, link) {
@@ -79,15 +50,15 @@ function createCard(place, link) {
     placePopupImg.src = evt.target.src;
     placePopupTitle.textContent = cardTitle.textContent;
     placePopupImg.alt = cardTitle.textContent;
-    popupOpen(placePopup);
+    preparationOfPopupForOpening(placePopup);
   });
   return card;
 }
 
-function formSubmitAddCard(evt) {
+function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
   placesContainer.prepend(createCard(cardPopupInputPlace.value, cardPopupInputLink.value));
-  popupClose(cardPopup);
+  preparationOfPopupForClosing(cardPopup);
   evt.target.reset();
 }
 
@@ -99,14 +70,33 @@ function haveForm(popup) {
   return Boolean(popup.querySelector('.popup__form'));
 }
 
-function formPreparation(popup) {
+function checkForm(popup) {
   const inputList = Array.from(popup.querySelectorAll('.popup__input'));
   inputList.forEach((inputElement) => {
     if (inputElement.value) {
-      checkInputValidity(popup.querySelector('.popup__form'), inputElement);
+      checkInputValidity(popup.querySelector('.popup__form'), inputElement, set.inputErrorClass, set.errorClass);
     }
   });
-  toggleButtonState(inputList, popup.querySelector('.popup__save-btn'));
+  toggleButtonState(inputList, popup.querySelector('.popup__save-btn'), set.inactiveButtonClass);
+}
+
+function preparationOfPopupForOpening(popup) {
+  document.addEventListener('keydown', closePopupByEsc);
+  if (haveForm(popup)) {
+    checkForm(popup);
+  }
+  openPopup(popup);
+}
+
+function closePopupByEsc(evt) {
+  if (evt.key === 'Escape') {
+    preparationOfPopupForClosing(findOpenedPopup());
+  }
+}
+
+function preparationOfPopupForClosing(popup) {
+  document.removeEventListener('keydown', closePopupByEsc);
+  closePopup(popup);
 }
 
 initialCards.forEach(item => {
@@ -115,27 +105,22 @@ initialCards.forEach(item => {
 btnEdit.addEventListener('click', () => {
   profilePopupInputName.value = userName.textContent;
   profilePopupInputInfo.value = userInfo.textContent;
-  popupOpen(profilePopup);
+  preparationOfPopupForOpening(profilePopup);
 });
 profilePopupCloseBtn.addEventListener('click', () => {
-  popupClose(profilePopup);
+  preparationOfPopupForClosing(profilePopup);
 });
 btnAdd.addEventListener('click', () => {
-  popupOpen(cardPopup);
+  preparationOfPopupForOpening(cardPopup);
 });
 cardPopupCloseBtn.addEventListener('click', () => {
-  popupClose(cardPopup);
+  preparationOfPopupForClosing(cardPopup);
 });
 placePopupCloseBtn.addEventListener('click', () => {
-  popupClose(placePopup);
-});
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' && findOpenedPopup()) {
-    popupClose(findOpenedPopup());
-  }
+  preparationOfPopupForClosing(placePopup);
 });
 document.addEventListener('click', (evt) => {
   if (!Array.from(evt.target.classList).indexOf('popup')) {
-    popupClose(findOpenedPopup());
+    preparationOfPopupForClosing(findOpenedPopup());
   }
 });

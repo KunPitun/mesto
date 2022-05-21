@@ -16,6 +16,8 @@ const placePopup = document.querySelector('.popup_type_place-popup');
 const placePopupImg = placePopup.querySelector('.popup__image');
 const placePopupTitle = placePopup.querySelector('.popup__title');
 const placePopupCloseBtn = placePopup.querySelector('.popup__close-btn');
+const profilePopupForm = profilePopup.querySelector('.popup__form');
+const cardPopupForm = cardPopup.querySelector('.popup__form');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -124,3 +126,5 @@ document.addEventListener('click', (evt) => {
     preparationOfPopupForClosing(findOpenedPopup());
   }
 });
+profilePopup.addEventListener('submit', handleProfileFormSubmit);
+cardPopupForm.addEventListener('submit', handleAddCardFormSubmit);

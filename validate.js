@@ -62,12 +62,6 @@ function setEventListeners(formElement, inputSelector, submitButtonSelector, ina
 function enableValidation(set) {
   const formList = Array.from(document.querySelectorAll(set.formSelector));
   formList.forEach((formElement) => {
-    if (formElement.closest('.popup_type_profile-popup')) {
-      formElement.addEventListener('submit', handleProfileFormSubmit);
-    }
-    if (formElement.closest('.popup_type_card-popup')) {
-      formElement.addEventListener('submit', handleAddCardFormSubmit);
-    }
     setEventListeners(formElement, set.inputSelector, set.submitButtonSelector, set.inactiveButtonClass, set.inputErrorClass, set.errorClass);
   });
 }

@@ -1,6 +1,6 @@
-class Card {
+export default class Card {
   constructor(data, cardTemplateSelector, handleCardClick) {
-    this._place = data.place;
+    this._place = data.name;
     this._link = data.link;
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
@@ -53,5 +53,3 @@ class Card {
     return this._card;
   }
 }
-
-export { Card };

@@ -1,17 +1,17 @@
-import '../pages/index.css';
+import './index.css';
 import {
   initialCards, profilePopupSelector, placePopupSelector,
   cardPopupSelector, profilePopupInputName, profilePopupInputInfo,
   btnEdit, btnAdd, cardPopupInputPlace, config, cardPopupInputLink,
   placesContainer, placesContainerSelector, userNameSelector,
   userInfoSelector, formValidators
-} from './constants.js';
-import UserInfo from './UserInfo.js';
-import Section from './Section.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import PopupWithImage from './PopupWithImage';
-import PopupWithForm from './PopupWithForm';
+} from '../components/constants.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithImage from '../components/PopupWithImage';
+import PopupWithForm from '../components/PopupWithForm';
 
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
@@ -24,9 +24,13 @@ function enableValidation(config) {
 }
 
 function handleCardClick(place, link) {
-  const popup = new PopupWithImage(placePopupSelector);
-  popup.open(place, link);
-  popup.setEventListeners();
+  imagePopup.open(place, link);
+}
+
+function createCard(data) {
+  const card = new Card(data, '#place-card-template', handleCardClick);
+  const cardElement = card.createCard();
+  return cardElement;
 }
 
 btnEdit.addEventListener('click', () => {
@@ -45,14 +49,11 @@ btnAdd.addEventListener('click', () => {
 enableValidation(config);
 
 const cards = new Section({
-  data: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#place-card-template', handleCardClick);
-    const cardElement = card.createCard();
-    cards.addItem(cardElement);
+    cards.addItem(createCard(item));
   }
 }, placesContainerSelector);
-cards.renderItems();
+cards.renderItems(initialCards);
 
 const userInfo = new UserInfo({ name: userNameSelector, info: userInfoSelector });
 
@@ -69,9 +70,10 @@ const cardPopup = new PopupWithForm(cardPopupSelector, {
       name: inputValues[cardPopupInputPlace.id],
       link: inputValues[cardPopupInputLink.id]
     }
-    const card = new Card(data, '#place-card-template', handleCardClick);
-    const cardElement = card.createCard();
-    placesContainer.prepend(cardElement);
+    placesContainer.prepend(createCard(data));
   }
 });
 cardPopup.setEventListeners();
+
+const imagePopup = new PopupWithImage(placePopupSelector);
+imagePopup.setEventListeners();

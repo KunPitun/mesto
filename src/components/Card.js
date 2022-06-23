@@ -20,8 +20,8 @@ export default class Card {
   }
 
   _deleteCard() {
-    const cardItem = this._card.closest('.place-card');
-    cardItem.remove();
+    this._card.remove();
+    this._card = null;
   }
 
   _setEventListeners() {

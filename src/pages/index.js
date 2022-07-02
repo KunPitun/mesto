@@ -1,10 +1,10 @@
 import './index.css';
 import {
-  initialCards, profilePopupSelector, placePopupSelector,
-  cardPopupSelector, profilePopupInputName, profilePopupInputInfo,
-  btnEdit, btnAdd, cardPopupInputPlace, config, cardPopupInputLink,
-  placesContainer, placesContainerSelector, userNameSelector,
-  userInfoSelector, formValidators
+  profilePopupSelector, placePopupSelector, cardPopupSelector,
+  profilePopupInputName, profilePopupInputInfo, btnEdit, btnAdd,
+  cardPopupInputPlace, config, cardPopupInputLink, placesContainer,
+  placesContainerSelector, userNameSelector, userInfoSelector,
+  userAvatarSelector, formValidators, groupID, token
 } from '../components/constants.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
@@ -33,6 +33,44 @@ function createCard(data) {
   return cardElement;
 }
 
+fetch(`https://nomoreparties.co/v1/${groupID}/users/me`, {
+  headers: {
+    authorization: token
+  }
+}) //загрузка информации о пользователе с сервера
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject('Не удалось загрузить информацию о пользователе');
+  })
+  .then((res) => {
+    document.querySelector(userNameSelector).textContent = res.name;
+    document.querySelector(userInfoSelector).textContent = res.about;
+    document.querySelector(userAvatarSelector).src = res.avatar;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+fetch(`https://mesto.nomoreparties.co/v1/${groupID}/cards`, {
+  headers: {
+    authorization: token
+  }
+}) //загрузка карточек с сервера
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject('Не удалось загрузить карточки');
+  })
+  .then((res) => {
+    cards.renderItems(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 btnEdit.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
   profilePopupInputName.value = userData.name;
@@ -53,13 +91,23 @@ const cards = new Section({
     cards.addItem(createCard(item));
   }
 }, placesContainerSelector);
-cards.renderItems(initialCards);
 
 const userInfo = new UserInfo({ name: userNameSelector, info: userInfoSelector });
 
 const profilePopup = new PopupWithForm(profilePopupSelector, {
   handleFormSubmit: (inputValues) => {
     userInfo.setUserInfo(inputValues[profilePopupInputName.id], inputValues[profilePopupInputInfo.id]);
+    fetch(`https://mesto.nomoreparties.co/v1/${groupID}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: inputValues[profilePopupInputName.id],
+        about: inputValues[profilePopupInputInfo.id]
+      })
+    });
   }
 });
 profilePopup.setEventListeners();
@@ -71,6 +119,17 @@ const cardPopup = new PopupWithForm(cardPopupSelector, {
       link: inputValues[cardPopupInputLink.id]
     }
     placesContainer.prepend(createCard(data));
+    fetch(`https://mesto.nomoreparties.co/v1/${groupID}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: inputValues[cardPopupInputPlace.id],
+        link: inputValues[cardPopupInputLink.id]
+      })
+    })
   }
 });
 cardPopup.setEventListeners();

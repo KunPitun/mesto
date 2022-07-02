@@ -1,29 +1,3 @@
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 export const profilePopupSelector = '.popup_type_profile-popup';
 export const placePopupSelector = '.popup_type_place-popup';
 export const cardPopupSelector = '.popup_type_card-popup';
@@ -45,4 +19,7 @@ export const config = {
 }
 export const userNameSelector = '.profile__user-name';
 export const userInfoSelector = '.profile__user-info';
+export const userAvatarSelector = '.profile__avatar';
 export const formValidators = {};
+export const token = 'a36e0e0d-a48a-4afd-9e5d-855c3e7f30f4';
+export const groupID = 'cohort-44';

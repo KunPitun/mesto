@@ -10,6 +10,7 @@
   background-color: transparent;
   transition: 0.5s;
   margin: 20px 20px 0 0;
+  display: none;
 }
 
 .place-card__delete-btn:hover {

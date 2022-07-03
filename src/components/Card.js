@@ -19,12 +19,6 @@ export default class Card {
 
   _addLike() {
     this._btnLike.classList.toggle('place-card__like-btn_active');
-    if(this._btnLike.classList.contains('place-card__like-btn_active')){
-      this._handleLikeClick(this._like.length + 1);
-    }
-    else {
-      this._handleLikeClick(this._like.length - 1);
-    }
   }
 
   _deleteCard() {
@@ -50,7 +44,6 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._place;
     this._cardTitle.textContent = this._place;
-    this._cardLike.textContent = this._like.length;
   }
 
   createCard() {

@@ -2,15 +2,11 @@
   padding: 0;
   width: 22px;
   height: 19px;
-  grid-row: 2/3;
-  grid-column: 1/2;
-  align-self: center;
-  justify-self: end;
-  margin: 30px 20px 30px 0;
   border: none;
   background-image: url(../../../images/Like_Button.svg);
   background-color: transparent;
   transition: 0.5s;
+  margin: 22px 0 0 0;
 }
 
 .place-card__like-btn:hover {

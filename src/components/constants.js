@@ -2,6 +2,7 @@ export const profilePopupSelector = '.popup_type_profile-popup';
 export const placePopupSelector = '.popup_type_place-popup';
 export const cardPopupSelector = '.popup_type_card-popup';
 export const deletePopupSelector = '.popup_type_delete-popup';
+export const likeCountSelector = '.place-card__like-count';
 export const profilePopupInputName = document.querySelector('.popup__input_type_name');
 export const profilePopupInputInfo = document.querySelector('.popup__input_type_user-info');
 export const btnEdit = document.querySelector('.profile__edit-btn');

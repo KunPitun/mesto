@@ -69,17 +69,32 @@
     </section>
     <section class="popup popup_type_delete-popup">
       <div class="popup__container popup__container_type_delete-popup">
-        <h2 class="popup__title">Вы уверены?</h2>
+        <h2 class="popup__title popup__title_type_delete-popup">Вы уверены?</h2>
         <button class="popup__save-btn" type="submit">Да</button>
         <button class="popup__close-btn popup__close-btn_type_delete-popup" type="button"></button>
       </div>
+    </section>
+    <section class="popup popup_type_avatar-popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="avatar-form" novalidate>
+          <input class="popup__input popup__input_type_avatar" type="url" placeholder="Ссылка на картинку"
+            name="form-input-avatar" id="avatar-input" required>
+          <span class="popup__error place-input-error"></span>
+          <button class="popup__save-btn" type="submit">Сохранить</button>
+        </form>
+      </div>
+      <button class="popup__close-btn" type="button"></button>
     </section>
   </div>
   <template id="place-card-template">
     <li class="place-card">
       <img class="place-card__image" src="#" alt="">
       <h2 class="place-card__title"></h2>
-      <button class="place-card__like-btn" type="button"></button>
+      <div class="place-card__like-container">
+        <button class="place-card__like-btn" type="button"></button>
+        <p class="place-card__like-count"></p>
+      </div>
       <button class="place-card__delete-btn" type="button"></button>
     </li>
   </template>

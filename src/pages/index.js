@@ -4,7 +4,8 @@ import {
   profilePopupInputName, profilePopupInputInfo, btnEdit, btnAdd,
   cardPopupInputPlace, config, cardPopupInputLink, placesContainer,
   placesContainerSelector, userNameSelector, userInfoSelector,
-  userAvatarSelector, formValidators, deletePopupSelector
+  userAvatarSelector, formValidators, deletePopupSelector,
+  likeCountSelector
 } from '../components/constants.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
@@ -28,8 +29,12 @@ function handleCardClick(place, link) {
   imagePopup.open(place, link);
 }
 
+function handleLikeClick(likes) {
+  console.log(likes);
+}
+
 function createCard(data) {
-  const card = new Card(data, '#place-card-template', handleCardClick);
+  const card = new Card(data, '#place-card-template', handleCardClick, handleLikeClick);
   const cardElement = card.createCard();
   return cardElement;
 }

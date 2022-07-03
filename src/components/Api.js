@@ -72,7 +72,21 @@ export default class Api {
       },
       body: JSON.stringify({
         name: place,
-        link: link
+        link: link,
+      })
+    });
+  }
+
+  giveLikeInfo(likes) {
+    console.log(likes);
+    fetch(`${this._baseUrl}/cards`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._autorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        likes: likes
       })
     });
   }

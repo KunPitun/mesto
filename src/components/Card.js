@@ -1,13 +1,16 @@
 export default class Card {
-  constructor(data, cardTemplateSelector, handleCardClick, handleLikeClick, handleLikeData) {
+  constructor(data, cardTemplateSelector, handleCardClick, handleAddLike, handleDeleteLike, getUserData, handleDeleteCard) {
     this._place = data.name;
     this._link = data.link;
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
     this._likes = data.likes;
     this._id = data._id;
-    this._handleLikeClick = handleLikeClick;
-    this._handleLikeData = handleLikeData;
+    this._owner = data.owner;
+    this._handleAddLike = handleAddLike;
+    this._handleDeleteLike = handleDeleteLike;
+    this._getUserData = getUserData;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _getTemplate() {
@@ -21,22 +24,29 @@ export default class Card {
 
   _addLike() {
     this._btnLike.classList.toggle('place-card__like-btn_active');
-    this._handleLikeClick(this._id, this._likes, this._cardLike);
-    this._handleLikeData(this._id)
-      .then((data) => {
-        console.log(data);
-      })
   }
 
   _deleteCard() {
     this._card.remove();
     this._card = null;
+    this._handleDeleteCard(this._id);
   }
 
   _setEventListeners() {
-    this._btnDelete = this._card.querySelector('.place-card__delete-btn');
     this._btnLike.addEventListener('click', () => {
       this._addLike();
+      if (this._btnLike.classList.contains('place-card__like-btn_active')) {
+        this._handleAddLike(this._id)
+          .then((data) => {
+            this._cardLike.textContent = data.likes.length;
+          });
+      }
+      else {
+        this._handleDeleteLike(this._id)
+          .then((data) => {
+            this._cardLike.textContent = data.likes.length;
+          });
+      }
     });
     this._btnDelete.addEventListener('click', () => {
       this._deleteCard();
@@ -48,15 +58,23 @@ export default class Card {
 
   _fillCard() {
     this._btnLike = this._card.querySelector('.place-card__like-btn');
+    this._btnDelete = this._card.querySelector('.place-card__delete-btn');
     this._cardImage.src = this._link;
     this._cardImage.alt = this._place;
     this._cardTitle.textContent = this._place;
-    this._handleLikeData()
-    .then((data) => {
-      if(this._likes.find((like) => like._id === data._id)) {
-        this._btnLike.classList.toggle('place-card__like-btn_active');
-      }
-    })
+    this._getUserData()
+      .then((data) => {
+        if (data._id === this._owner._id) {
+          this._btnDelete.classList.add('place-card__delete-btn_visible');
+        }
+      })
+    this._cardLike.textContent = this._likes.length;
+    this._getUserData()
+      .then((data) => {
+        if (this._likes.find((like) => like._id === data._id)) {
+          this._addLike();
+        }
+      });
   }
 
   createCard() {

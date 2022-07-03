@@ -28,30 +28,24 @@ function handleCardClick(place, link) {
   imagePopup.open(place, link);
 }
 
-function handleLikeClick(id, likes, counter) {
-  api.getUserData()
-    .then((data) => {
-      if (likes.find((like) => like._id === data._id)) {
-        api.deleteLike(id)
-          .then((data) => {
-            console.log(data.likes);
-          });
-      }
-      else {
-        api.addLike(id)
-          .then((data) => {
-            console.log(data.likes);
-          });
-      }
-    });
+function handleAddLike(cardId) {
+  return api.addLike(cardId);
 }
 
-function handleLikeData() {
+function handleDeleteLike(cardId) {
+  return api.deleteLike(cardId);
+}
+
+function handleDeleteCard(cardId) {
+  return api.deleteCard(cardId);
+}
+
+function getUserData() {
   return api.getUserData();
 }
 
 function createCard(data) {
-  const card = new Card(data, '#place-card-template', handleCardClick, handleLikeClick, handleLikeData);
+  const card = new Card(data, '#place-card-template', handleCardClick, handleAddLike, handleDeleteLike, getUserData, handleDeleteCard);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -101,17 +95,25 @@ api.getInitialCards()
   })
 
 const profilePopup = new PopupWithForm(profilePopupSelector, {
-  handleFormSubmit: (inputValues) => {
+  handleFormSubmit: (inputValues, btnSave) => {
     userInfo.setUserInfo({ name: inputValues[profilePopupInputName.id], about: inputValues[profilePopupInputInfo.id] });
-    api.giveUserInfo(inputValues[profilePopupInputName.id], inputValues[profilePopupInputInfo.id]);
+    api.giveUserInfo(inputValues[profilePopupInputName.id], inputValues[profilePopupInputInfo.id])
+    .finally(() => {
+      btnSave.textContent = 'Сохранить';
+    });
   }
 });
 profilePopup.setEventListeners();
 
 const cardPopup = new PopupWithForm(cardPopupSelector, {
-  handleFormSubmit: (inputValues) => {
-    placesContainer.prepend(createCard({ name: inputValues[cardPopupInputPlace.id], link: inputValues[cardPopupInputLink.id] }));
-    api.giveCardInfo(inputValues[cardPopupInputPlace.id], inputValues[cardPopupInputLink.id]);
+  handleFormSubmit: (inputValues, btnSave) => {
+    api.giveCardInfo(inputValues[cardPopupInputPlace.id], inputValues[cardPopupInputLink.id])
+    .then((data) => {
+      placesContainer.prepend(createCard(data));
+    })
+    .finally(() => {
+      btnSave.textContent = 'Создать';
+    })
   }
 });
 cardPopup.setEventListeners();

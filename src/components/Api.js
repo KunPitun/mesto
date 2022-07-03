@@ -41,7 +41,7 @@ export default class Api {
   }
 
   giveUserInfo(name, info) {
-    fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._autorization,
@@ -55,7 +55,7 @@ export default class Api {
   }
 
   giveCardInfo(place, link) {
-    fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: {
         authorization: this._autorization,
@@ -65,11 +65,20 @@ export default class Api {
         name: place,
         link: link,
       })
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Не удалось отправить информацию о карточке');
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
 
   addLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes `, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
         authorization: this._autorization,
@@ -88,7 +97,7 @@ export default class Api {
   }
 
   deleteLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes `, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: {
         authorization: this._autorization,
@@ -100,6 +109,25 @@ export default class Api {
           return res.json();
         }
         return Promise.reject('Не удалось убрать лайк');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._autorization,
+        'Content-Type': this._contentType
+      }
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject('Не удалось удалить карточку');
       })
       .catch((err) => {
         console.log(err);

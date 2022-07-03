@@ -37,7 +37,7 @@
 @import url(../blocks/popup/__error/_visible/poppup__error_visible.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-@import url(../blocks/place-card/__delete-btn/_type/place-card__delete-btn_type_visible.css);
+@import url(../blocks/place-card/__delete-btn/_visible/place-card__delete-btn_visible.css);
 @import url(../blocks/popup/__title/_type/popup__title_type_delete-popup.css);
 @import url(../blocks/place-card/__like-container/place-card__like-container.css);
 @import url(../blocks/place-card/__like-count/place-card__like-count.css);

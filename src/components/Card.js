@@ -1,24 +1,31 @@
 export default class Card {
-  constructor(data, cardTemplateSelector, handleCardClick, handleLikeClick) {
+  constructor(data, cardTemplateSelector, handleCardClick, handleLikeClick, handleLikeData) {
     this._place = data.name;
     this._link = data.link;
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
-    this._like = data.likes;
+    this._likes = data.likes;
+    this._id = data._id;
     this._handleLikeClick = handleLikeClick;
+    this._handleLikeData = handleLikeData;
   }
 
   _getTemplate() {
     const cardTemplateElement = document
-    .querySelector(this._cardTemplateSelector)
-    .content
-    .querySelector('.place-card')
-    .cloneNode(true);
+      .querySelector(this._cardTemplateSelector)
+      .content
+      .querySelector('.place-card')
+      .cloneNode(true);
     return cardTemplateElement;
   }
 
   _addLike() {
     this._btnLike.classList.toggle('place-card__like-btn_active');
+    this._handleLikeClick(this._id, this._likes, this._cardLike);
+    this._handleLikeData(this._id)
+      .then((data) => {
+        console.log(data);
+      })
   }
 
   _deleteCard() {
@@ -27,7 +34,6 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._btnLike = this._card.querySelector('.place-card__like-btn');
     this._btnDelete = this._card.querySelector('.place-card__delete-btn');
     this._btnLike.addEventListener('click', () => {
       this._addLike();
@@ -41,9 +47,16 @@ export default class Card {
   }
 
   _fillCard() {
+    this._btnLike = this._card.querySelector('.place-card__like-btn');
     this._cardImage.src = this._link;
     this._cardImage.alt = this._place;
     this._cardTitle.textContent = this._place;
+    this._handleLikeData()
+    .then((data) => {
+      if(this._likes.find((like) => like._id === data._id)) {
+        this._btnLike.classList.toggle('place-card__like-btn_active');
+      }
+    })
   }
 
   createCard() {

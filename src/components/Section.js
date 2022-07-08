@@ -8,6 +8,10 @@ export default class Section {
     this._container.append(element);
   }
 
+  addNewItem(element) {
+    this._container.prepend(element);
+  }
+
   renderItems(cards) {
     cards.forEach(item => {
       this._renderer(item);

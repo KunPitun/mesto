@@ -27,7 +27,6 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
       this._btnSave.textContent = 'Сохранение...';   
       this._handleFormSubmit(this._getInputValues(), this._btnSave);
-      super.close();
     });
     super.setEventListeners();
   }

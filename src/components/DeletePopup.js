@@ -18,7 +18,6 @@ export default class DeletePopup extends Popup {
       evt.preventDefault();
       this._btnSave.textContent = 'Удаление...';   
       this._handleSubmit(this._cardId, this._cardElement, this._btnSave);
-      super.close();
     });
     super.setEventListeners();
   }

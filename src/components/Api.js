@@ -5,21 +5,20 @@ export default class Api {
     this._contentType = headers['Content-Type'];
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка ${res.status}`);
+  }
+
   getUserData() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         authorization: this._autorization
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Не удалось получить информацию о пользователе');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse)
   }
 
   getInitialCards() {
@@ -29,15 +28,7 @@ export default class Api {
         'Content-Type': this._contentType
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Не удалось получить карточки');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse)
   }
 
   giveUserInfo(name, info) {
@@ -52,15 +43,7 @@ export default class Api {
         about: info
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Не удалось отправить информацию о пользователе');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then(this._checkResponse)
   }
 
   giveCardInfo(place, link) {
@@ -75,15 +58,7 @@ export default class Api {
         link: link,
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Не удалось отправить информацию о карточке');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then(this._checkResponse)
   }
 
   addLike(cardId) {
@@ -94,15 +69,7 @@ export default class Api {
         'Content-Type': this._contentType
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Не удалось поставить лайк');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse)
   }
 
   deleteLike(cardId) {
@@ -113,15 +80,7 @@ export default class Api {
         'Content-Type': this._contentType
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Не удалось убрать лайк');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse)
   }
 
   deleteCard(cardId) {
@@ -132,15 +91,7 @@ export default class Api {
         'Content-Type': this._contentType
       }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Не удалось удалить карточку');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(this._checkResponse)
   }
 
   giveAvatarInfo(link) {
@@ -154,14 +105,6 @@ export default class Api {
         avatar: link
       })
     })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Не удалось установить аватар');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  } 
+      .then(this._checkResponse)
+  }
 }

@@ -50,15 +50,19 @@ const api = new Api({
     authorization: 'a36e0e0d-a48a-4afd-9e5d-855c3e7f30f4',
     'Content-Type': 'application/json'
   }
-})
+});
+
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
+    userInfo.setUserInfo(userData);
+    userInfo.setUserAvatar(userData);
+    cards.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const userInfo = new UserInfo({ name: userNameSelector, info: userInfoSelector, avatar: userAvatarSelector });
-
-api.getUserData()
-  .then((data) => {
-    userInfo.setUserInfo(data);
-    userInfo.setUserAvatar(data);
-  });
 
 btnEdit.addEventListener('click', () => {
   const userProfileInfo = userInfo.getUserInfo();
@@ -87,15 +91,16 @@ const cards = new Section({
   }
 }, placesContainerSelector);
 
-api.getInitialCards()
-  .then((data) => {
-    cards.renderItems(data);
-  })
-
 const profilePopup = new PopupWithForm(profilePopupSelector, {
   handleFormSubmit: (inputValues, btnSave) => {
-    userInfo.setUserInfo({ name: inputValues[profilePopupInputName.id], about: inputValues[profilePopupInputInfo.id] });
     api.giveUserInfo(inputValues[profilePopupInputName.id], inputValues[profilePopupInputInfo.id])
+      .then(() => {
+        userInfo.setUserInfo({ name: inputValues[profilePopupInputName.id], about: inputValues[profilePopupInputInfo.id] });
+        profilePopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => {
         btnSave.textContent = 'Сохранить';
       });
@@ -107,7 +112,11 @@ const cardPopup = new PopupWithForm(cardPopupSelector, {
   handleFormSubmit: (inputValues, btnSave) => {
     api.giveCardInfo(inputValues[cardPopupInputPlace.id], inputValues[cardPopupInputLink.id])
       .then((data) => {
-        placesContainer.prepend(createCard(data));
+        cards.addNewItem(createCard(data));
+        cardPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => {
         btnSave.textContent = 'Создать';
@@ -123,6 +132,12 @@ const avatarPopup = new PopupWithForm(avatarPopupSelector, {
   handleFormSubmit: (inputValues, btnSave) => {
     document.querySelector(userAvatarSelector).src = inputValues[avatarPopupInputLink.id];
     api.giveAvatarInfo(inputValues[avatarPopupInputLink.id])
+      .then(() => {
+        avatarPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => {
         btnSave.textContent = 'Сохранить';
       });
@@ -133,14 +148,13 @@ avatarPopup.setEventListeners();
 const deletePopup = new DeletePopup(deletePopupSelector, {
   handleSubmit: (cardId, cardElement, btnSave) => {
     api.deleteCard(cardId)
-    api.getInitialCards()
-      .then((cards) => {
-        cards.forEach((card) => {
-          if (card._id === cardId) {
-            cardElement.remove();
-            cardElement = null;
-          }
-        });
+      .then(() => {
+        cardElement.remove();
+        cardElement = null;
+        deletePopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => {
         btnSave.textContent = 'Да';

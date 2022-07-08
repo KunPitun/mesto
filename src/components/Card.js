@@ -28,17 +28,24 @@ export default class Card {
 
   _setEventListeners() {
     this._btnLike.addEventListener('click', () => {
-      this._addLike();
       if (this._btnLike.classList.contains('place-card__like-btn_active')) {
-        this._handleAddLike(this._id)
+        this._handleDeleteLike(this._id)
           .then((data) => {
+            this._addLike();
             this._cardLike.textContent = data.likes.length;
+          })
+          .catch((err) => {
+            console.log(err);
           });
       }
       else {
-        this._handleDeleteLike(this._id)
+        this._handleAddLike(this._id)
           .then((data) => {
+            this._addLike();
             this._cardLike.textContent = data.likes.length;
+          })
+          .catch((err) => {
+            console.log(err);
           });
       }
     });
@@ -62,12 +69,18 @@ export default class Card {
           this._btnDelete.classList.add('place-card__delete-btn_visible');
         }
       })
+      .catch((err) => {
+        console.log(err);
+      });
     this._cardLike.textContent = this._likes.length;
     this._getUserData()
       .then((data) => {
         if (this._likes.find((like) => like._id === data._id)) {
           this._addLike();
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 

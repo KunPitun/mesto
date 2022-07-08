@@ -15,7 +15,7 @@ export default class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject('Не удалось загрузить информацию о пользователе');
+        return Promise.reject('Не удалось получить информацию о пользователе');
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +33,7 @@ export default class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject('Не удалось загрузить карточки');
+        return Promise.reject('Не удалось получить карточки');
       })
       .catch((err) => {
         console.log(err);
@@ -51,6 +51,15 @@ export default class Api {
         name: name,
         about: info
       })
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Не удалось отправить информацию о пользователе');
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
 
@@ -133,4 +142,26 @@ export default class Api {
         console.log(err);
       });
   }
+
+  giveAvatarInfo(link) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._autorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        avatar: link
+      })
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject('Не удалось установить аватар');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  } 
 }

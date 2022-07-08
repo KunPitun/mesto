@@ -15,7 +15,9 @@
     </header>
     <main>
       <section class="profile">
-        <img class="profile__avatar" src="" alt="Аватар пользователя">
+        <div class="profile__avatar-container">
+          <img class="profile__avatar" src="" alt="Аватар пользователя">
+        </div>        
         <div class="profile__intro">
           <h1 class="profile__user-name"></h1>
           <button class="profile__edit-btn" type="button"></button>
@@ -80,7 +82,7 @@
         <form class="popup__form" name="avatar-form" novalidate>
           <input class="popup__input popup__input_type_avatar" type="url" placeholder="Ссылка на картинку"
             name="form-input-avatar" id="avatar-input" required>
-          <span class="popup__error place-input-error"></span>
+          <span class="popup__error avatar-input-error"></span>
           <button class="popup__save-btn" type="submit">Сохранить</button>
         </form>
       </div>

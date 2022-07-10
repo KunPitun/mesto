@@ -1,8 +1,8 @@
 import './index.css';
 import {
   profilePopupSelector, placePopupSelector, cardPopupSelector,
-  profilePopupInputName, profilePopupInputInfo, btnEdit, btnAdd,
-  cardPopupInputPlace, config, cardPopupInputLink, placesContainer,
+  profilePopupInputName, profilePopupInputInfo, btnEdit,
+  btnAdd, cardPopupInputPlace, config, cardPopupInputLink,
   placesContainerSelector, userNameSelector, userInfoSelector,
   userAvatarSelector, formValidators, deletePopupSelector,
   avatarPopupSelector, avatarPopupInputLink, userAvatarContainer
@@ -55,7 +55,7 @@ const api = new Api({
 Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([userData, initialCards]) => {
     userInfo.setUserInfo(userData);
-    userInfo.setUserAvatar(userData);
+    userInfo.setUserAvatar(userData.avatar);
     cards.renderItems(initialCards);
   })
   .catch((err) => {
@@ -130,9 +130,9 @@ imagePopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm(avatarPopupSelector, {
   handleFormSubmit: (inputValues, btnSave) => {
-    document.querySelector(userAvatarSelector).src = inputValues[avatarPopupInputLink.id];
     api.giveAvatarInfo(inputValues[avatarPopupInputLink.id])
       .then(() => {
+        userInfo.setUserAvatar(inputValues[avatarPopupInputLink.id]);
         avatarPopup.close();
       })
       .catch((err) => {
